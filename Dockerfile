@@ -27,7 +27,8 @@ RUN wget -q -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsea
  && ln -s $(which node) kibana/node/bin/node \
  && ln -s $(which npm) kibana/node/bin/npm
 
-CMD elasticsearch/bin/elasticsearch -E discovery.type=single-node -E http.host=0.0.0.0 & kibana/bin/kibana --host 0.0.0.0
+RUN mkdir /home/elasticsearch/data
+CMD elasticsearch/bin/elasticsearch -E path.data=/home/elasticsearch/data -E discovery.type=single-node -E http.host=0.0.0.0 & kibana/bin/kibana --host 0.0.0.0
 
 
 EXPOSE 9200 5601 9100
